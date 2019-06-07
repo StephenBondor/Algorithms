@@ -1,6 +1,7 @@
 # !/usr/bin/python
 
 import sys
+
 # from sympy import *
 # from sympy.abc import x
 
@@ -90,7 +91,32 @@ def making_change(amount, denominations):
     # exp = Poly(ways, x**amount)
     # print(factor_list(ways))
     # amount = amount/100
-    return round(1 + (55*(amount/100) + 238*(amount/100)**2 + 380*(amount/100)**3 + 200*(amount/100)**4)/3)
+
+    return round(
+        1
+        + (
+            55 * (amount / 100)
+            + 238 * (amount / 100) ** 2
+            + 380 * (amount / 100) ** 3
+            + 200 * (amount / 100) ** 4
+        )
+        / 3
+    )
+
+    # this allows us to iterate over 0 all the way through 10, which is technically 11 elements
+    # ways_to_change = [0 for amount in range(amount + 1)]
+    # ways_to_change[0] = 1
+    # for denom in denominations:
+    #     # this will be pennies, nickels, dimes, half-dollars, quarters
+    #     for amount in range(denom, amount + 1):
+    #         # we don't try to divide 0 by pennies and stuff lol
+    #         if denom <= amount:
+    #             # for example, if amount is dime, we can put denoms up to dimes into the dime
+    #             ways_to_change[amount] += ways_to_change[amount - denom]
+    # return ways_to_change[amount]
+
+
+# making_change(15, [1, 5, 10, 25, 50])
 
 
 if __name__ == "__main__":
@@ -100,8 +126,11 @@ if __name__ == "__main__":
     if len(sys.argv) > 1:
         denominations = [1, 5, 10, 25, 50]
         amount = int(sys.argv[1])
-        print("There are {ways} ways to make {amount} cents.".format(
-            ways=making_change(amount, denominations), amount=amount))
+        print(
+            "There are {ways} ways to make {amount} cents.".format(
+                ways=making_change(amount, denominations), amount=amount
+            )
+        )
     else:
         print("Usage: making_change.py [amount]")
     # end = time.time()
